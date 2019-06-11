@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas{background: #272822;margin: 10px auto;display: block;
+        position: relative;}
+    </style>
+</head>
+<body>
+    颜色:<input type="color" id="color">
+    粗细:<input type="range" id="range" min="1" max="20" value=""> <span id="r">3</span>
+    <input type="button" id="xp" value="橡皮擦">
+    <canvas id="canvas" width="950" height="550"></canvas>
+    <script>
+        var canvas=document.getElementById('canvas');
+        //获得绘制环境(相当于一层画布)
+        var cv=canvas.getContext('2d');
+       
+        //添加鼠标按下事件
+        canvas.onmousedown=function(e){
+            var ev=window.event||e;
+            /* cv.strokeStyle='yellow';
+            cv.lineWidth=3; */
+            //获取鼠标位置
+            var mousex=ev.layerX||ev.offsetX;   
+            var mousey=ev.layerY||ev.offsetY; 
+            cv.beginPath(); 
+            //设置起点
+            cv.moveTo(mousex,mousey); 
+            canvas.onmousemove=function(e){
+                var ev=window.event||e;
+                //获取鼠标最新位置
+                var newx=ev.layerX||ev.offsetX;
+                var newy=ev.layerY||ev.offsetY;
+                cv.lineTo(newx,newy);
+                //绘制路径
+                cv.stroke();
+            }
+            canvas.onmouseup=function(){
+            //取消鼠标事件
+            canvas.onmousemove=null;
+            cv.closePath();
+            //cv.stroke();
+         }          
+        }    
+         //顏色
+         document.getElementById("color").onchange=function(){
+            console.log(this.value);
+           cv.strokeStyle=this.value;     
+        }
+        //粗细
+        document.getElementById("range").onchange=function(){
+            cv.lineWidth=parseInt(this.value);
+           console.log(cv.lineWidth);
+            document.getElementById("r").innerHTML=this.value;
+        }
+         //橡皮擦
+         document.getElementById("xp").onclick=function(){
+            cv.strokeStyle='#272822';
+        }
+       
+    </script>
+</body>
+</html>

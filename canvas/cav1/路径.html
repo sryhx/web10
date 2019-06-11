@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas{background: #000000;}
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="950" height="550"></canvas>
+    <script>
+        var canvas=document.getElementById('canvas');
+        //获得绘制环境(相当于一层画布)
+        var cv=canvas.getContext('2d');
+        //开启路径
+        cv.beginPath();
+        //设置起点
+        cv.moveTo(20,20);
+        //设置终点
+        cv.lineTo(150,300);
+        cv.lineTo(280,20);     
+         cv.lineTo(410,300);     
+        cv.lineTo(570,20);   
+       /*  //關閉路徑(最後一個點和第一個點鏈接)
+        cv.closePath();   
+        //填充顏色
+        cv.fillStyle='pink';
+        //填充路徑
+        cv.fill(); */
+        //指定线条颜色、粗细
+        cv.strokeStyle='yellow';
+        cv.lineWidth=18;
+        //边界类型
+        cv.lineJoin='round';
+        //绘制出来的路径线条
+        cv.stroke();
+    </script>
+</body>
+</html>

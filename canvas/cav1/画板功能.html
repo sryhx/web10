@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas{background: #272822;margin: 10px auto;display: block;
+        position: relative;}
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="950" height="550"></canvas>
+    <script>
+        var canvas=document.getElementById('canvas');
+        //获得绘制环境(相当于一层画布)
+        var cv=canvas.getContext('2d');
+        //添加鼠標按下事件
+        canvas.onmousedown=function(e){
+            var ev=window.event||e;
+            cv.strokeStyle='yellow';
+            cv.lineWidth=3;
+            //獲取鼠標位置
+            var mousex=ev.layerX||ev.offsetX;   
+            var mousey=ev.layerY||ev.offsetY;  
+            //設置起點
+            cv.moveTo(mousex,mousey); 
+            canvas.onmousemove=function(e){
+                var ev=window.event||e;
+                //獲取鼠標最新位置
+                var newx=ev.layerX||ev.offsetX;
+                var newy=ev.layerY||ev.offsetY;
+                cv.lineTo(newx,newy);
+                //繪製路徑
+                cv.stroke();
+            }
+        }
+        canvas.onmouseup=function(){
+            //取消鼠標事件
+            canvas.onmousemove=null;
+        }
+    </script>
+</body>
+</html>
